@@ -17,6 +17,13 @@ public class Matrix {
 		matrix = mat;
 	}
 	
+	/**
+	 * A method to perform matrix multiplication (dot product).
+	 * 
+	 * @param mat1 the first matrix
+	 * @param mat2 the second matrix
+	 * @return the dot product of the two matrices
+	 */
 	public static Matrix matrixMultiply(Matrix mat1, Matrix mat2) {
 		if(mat1.getCols() == mat2.getRows()) {
 			double[][] newMat = new double[mat1.getRows()][mat2.getCols()];
@@ -34,6 +41,35 @@ public class Matrix {
 		}
 	}
 	
+	/**
+	 * A method for adding two matrices.
+	 * 
+	 * @param mat1 the first matrix
+	 * @param mat2 the second matrix
+	 * @return the matrices added together
+	 */
+	public static Matrix matrixAdd(Matrix mat1, Matrix mat2) {
+		if(mat1.getRows() == mat2.getRows() && mat1.getCols() == mat2.getCols()) {
+			double[][] newMat = new double[mat1.getRows()][mat1.getCols()];
+			for(int i = 0; i < mat1.getRows(); i++) {
+				for(int j = 0; j < mat1.getCols(); j++) {
+					newMat[i][j] = mat1.get(i, j) + mat2.get(i, j);
+				}
+			}
+			return new Matrix(newMat);
+		}
+		else {
+			return null;
+		}
+	}
+	
+	/**
+	 * A method for subtracting two matrices.
+	 * 
+	 * @param mat1 the first matrix
+	 * @param mat2 the second matrix
+	 * @return the second matrix subtracted from the first
+	 */
 	public static Matrix matrixSubtract(Matrix mat1, Matrix mat2) {
 		if(mat1.getRows() == mat2.getRows() && mat1.getCols() == mat2.getCols()) {
 			double[][] newMat = new double[mat1.getRows()][mat1.getCols()];
@@ -103,9 +139,9 @@ public class Matrix {
 		this.matrix = matrix;
 	}
 	
-	public void display() {
-		System.out.println(matrix);
-	}
+//	public void display() {
+//		System.out.println(matrix);
+//	}
 	
 	public String toString() {
 		String s = "";
@@ -119,14 +155,14 @@ public class Matrix {
     }
 	
 	public static void main(String[] args) {
-		Matrix m1 = new Matrix(new double[][] {{2, 3, 4}, {1, 5, 6}});
-		Matrix m2 = new Matrix(new double[][] {{2, 3, 4}, {1, 5, 6}, {6, 7, 10}});
-		Matrix m3 = Matrix.matrixMultiply(m1, m2);
-		System.out.println(m3);
-		m3.multiply(2);
-		System.out.println(m3);
-		Matrix m4 = m3.transpose();
-		System.out.println(m4);
+//		Matrix m1 = new Matrix(new double[][] {{2, 3, 4}, {1, 5, 6}});
+//		Matrix m2 = new Matrix(new double[][] {{2, 3, 4}, {1, 5, 6}, {6, 7, 10}});
+//		Matrix m3 = Matrix.matrixMultiply(m1, m2);
+//		System.out.println(m3);
+//		m3.multiply(2);
+//		System.out.println(m3);
+//		Matrix m4 = m3.transpose();
+//		System.out.println(m4);
 	}
 	
 }
