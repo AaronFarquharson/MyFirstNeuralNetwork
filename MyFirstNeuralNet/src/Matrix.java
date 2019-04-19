@@ -37,8 +37,25 @@ public class Matrix {
 			return new Matrix(newMat);
 		}
 		else {
+			System.out.println("Cannot multiply these matrices. Their dimensions do not allow it");
 			return null;
 		}
+	}
+	
+	/**
+	 * A method to produce the hadamard product needed for the backprop algorithm.
+	 * @param m1 matrix one
+	 * @param m2 matrix two
+	 * @return the hadamard product of the two
+	 */
+	public static Matrix hadamardProduct(Matrix m1, Matrix m2) {
+		double[][] newMat = new double[m1.getRows()][m1.getCols()];
+		for(int i = 0; i < m1.getRows(); i++) {
+			for(int j = 0; j < m1.getCols(); j++) {
+				newMat[i][j] = m1.get(i, j) * m2.get(i, j);
+			}
+		}
+		return new Matrix(newMat);
 	}
 	
 	/**
@@ -81,24 +98,47 @@ public class Matrix {
 			return new Matrix(newMat);
 		}
 		else {
+			System.out.println("Cannot subtract these matrices. Their dimensions do not allow it");
 			return null;
 		}
 	}
 	
-	public void multiply(double constant) {
-		for(int i = 0; i < getRows(); i++) {
-			for(int j = 0; j < getCols(); j++) {
-				matrix[i][j] *= constant;
+	public Matrix multiply(Matrix m) {
+		if(getCols() == m.getRows()) {
+			double[][] newMat = new double[getRows()][m.getCols()];
+			for(int i = 0; i < getRows(); i++) {
+				for(int j = 0; j < m.getCols(); j++) {
+					for(int k = 0; k < getCols(); k++) {
+						newMat[i][j] += get(i, k) * m.get(k, j);
+					}
+				}
 			}
+			return new Matrix(newMat);
+		}
+		else {
+			System.out.println("Cannot multiply these matrices. Their dimensions do not allow it");
+			return null;
 		}
 	}
 	
-	public void add(double constant) {
+	public Matrix multiplyConst(double constant) {
+		double[][] newMat = new double[getRows()][getCols()];
 		for(int i = 0; i < getRows(); i++) {
 			for(int j = 0; j < getCols(); j++) {
-				matrix[i][j] += constant;
+				newMat[i][j] = get(i, j) * constant;
 			}
 		}
+		return new Matrix(newMat);
+	}
+	
+	public Matrix addConst(double constant) {
+		double[][] newMat = new double[getRows()][getCols()];
+		for(int i = 0; i < getRows(); i++) {
+			for(int j = 0; j < getCols(); j++) {
+				newMat[i][j] = get(i, j) + constant;
+			}
+		}
+		return new Matrix(newMat);
 	}
 	
 	public Matrix transpose() {
@@ -139,9 +179,9 @@ public class Matrix {
 		this.matrix = matrix;
 	}
 	
-//	public void display() {
-//		System.out.println(matrix);
-//	}
+	public void display() {
+		System.out.println(this);
+	}
 	
 	public String toString() {
 		String s = "";
